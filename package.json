@@ -41,6 +41,7 @@
     "jscodeshift": "^17.1.2"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.12",
     "@eslint/js": "^9.19.0",
     "@tsconfig/node18": "^18.2.4",
     "@types/jscodeshift": "^0.12.0",
