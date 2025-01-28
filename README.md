@@ -1,4 +1,4 @@
-# pretty-good-ember-codemods
+# @ciena-org/ember-codemods
 
 [![node](https://img.shields.io/badge/node-18.20.0-339933?logo=nodedotjs)](https://nodejs.org/en/blog/release/v18.20.0)
 
@@ -9,7 +9,7 @@ Replace `TRANSFORM` with one of the transforms listed below.
 
 ```
 TRANSFORM="revert-computed-macro"; \
-npx pretty-good-ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
+npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 ```
 
 ## Transforms

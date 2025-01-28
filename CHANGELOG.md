@@ -1,4 +1,4 @@
-# pretty-good-ember-codemods
+# @ciena-org/ember-codemods
 
 ## 0.1.1
 

@@ -1,5 +1,5 @@
 {
-  "name": "pretty-good-ember-codemods",
+  "name": "@ciena-org/ember-codemods",
   "version": "0.1.1",
   "description": "A collection of pretty good codemods for Ember",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ciena-blueplanet/pretty-good-ember-codemods.git"
+    "url": "git+https://github.com/ciena-blueplanet/ember-codemods.git"
   },
   "keywords": [
     "codemod",
@@ -19,21 +19,21 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ciena-blueplanet/pretty-good-ember-codemods/issues"
+    "url": "https://github.com/ciena-blueplanet/ember-codemods/issues"
   },
-  "homepage": "https://github.com/ciena-blueplanet/pretty-good-ember-codemods#readme",
+  "homepage": "https://github.com/ciena-blueplanet/ember-codemods#readme",
   "engines": {
     "node": ">= 18.20"
   },
   "bin": {
-    "pretty-good-ember-codemods": "./dist/cli.js"
+    "ciena-org-ember-codemods": "./dist/cli.js"
   },
   "files": [
     "dist"
   ],
   "imports": {
     "#*": {
-      "pretty-good-ember-codemods-dev": "./src/*",
+      "ciena-org-ember-codemods-dev": "./src/*",
       "default": "./dist/*"
     }
   },

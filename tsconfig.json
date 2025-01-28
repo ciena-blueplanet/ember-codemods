@@ -4,6 +4,6 @@
     "baseUrl": ".",
     "rootDir": "src",
     "outDir": "dist",
-    "customConditions": ["pretty-good-ember-codemods-dev"]
+    "customConditions": ["ciena-org-ember-codemods-dev"]
   }
 }
