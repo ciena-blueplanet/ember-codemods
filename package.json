@@ -6,7 +6,8 @@
     "build": "tsc",
     "lint": "eslint src",
     "prepare": "npm run build",
-    "test": "npm run lint && glob -c \"node --import tsx --test\" \"src/**/*.test.ts\""
+    "test": "npm run lint && glob -c \"node --import tsx --test\" \"src/**/*.test.ts\"",
+    "version": "@changesets/cli version && npm i"
   },
   "repository": {
     "type": "git",
