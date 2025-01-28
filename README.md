@@ -2,7 +2,7 @@
 
 [![node](https://img.shields.io/badge/node-18.20.0-339933?logo=nodedotjs)](https://nodejs.org/en/blog/release/v18.20.0)
 
-A collection of pretty good codemods that can be run to quickly refactor Ember code.
+A collection of codemods that can be run to quickly refactor Ember code.
 
 ## Usage
 Replace `TRANSFORM` with one of the transforms listed below.
@@ -41,10 +41,4 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 
 ## Contributing
 
-### Setup
-* Clone the repo
-* Change into the directory
-* `npm i`
-
-### Running tests
-`npm run test`
+If you are interested in helping contribute to this project, please take a look at our [Contributing Guide](./CONTRIBUTING.md).
