@@ -35,6 +35,8 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
+          # Need to do changeset version and npm i to update version in package-lock
+          version: npx @changesets/cli version && npm i
           publish: npx @changesets/cli publish --otp=$NPM_TOKEN
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
