@@ -1,6 +1,6 @@
 # pretty-good-ember-codemods
 
-[![node](https://img.shields.io/badge/node-18.17.1-339933?logo=nodedotjs)](https://nodejs.org/en/blog/release/v18.17.1)
+[![node](https://img.shields.io/badge/node-18.20.0-339933?logo=nodedotjs)](https://nodejs.org/en/blog/release/v18.20.0)
 
 A collection of pretty good codemods that can be run to quickly refactor Ember code.
 

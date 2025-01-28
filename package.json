@@ -6,7 +6,7 @@
     "build": "tsc",
     "lint": "eslint src",
     "prepare": "npm run build",
-    "test": "npm run lint && glob -c \"node --loader tsx --test\" \"src/**/*.test.ts\""
+    "test": "npm run lint && glob -c \"node --import tsx --test\" \"src/**/*.test.ts\""
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/ciena-blueplanet/pretty-good-ember-codemods#readme",
   "engines": {
-    "node": ">= 18"
+    "node": ">= 18.20"
   },
   "bin": {
     "pretty-good-ember-codemods": "./dist/cli.js"
