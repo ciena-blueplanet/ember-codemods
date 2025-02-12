@@ -30,7 +30,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | 3.27          | [ember-global](https://deprecations.emberjs.com/id/ember-global) | |
 | 4.0           | [ember-polyfills.deprecate-assign](https://deprecations.emberjs.com/id/ember-polyfills-deprecate-assign) | |
 | 4.1           | [deprecate-auto-location](https://deprecations.emberjs.com/id/deprecate-auto-location) | |
-| 4.10          | [deprecate-ember-error](https://deprecations.emberjs.com/id/deprecate-ember-error) | |
+| 4.10          | [deprecate-ember-error](https://deprecations.emberjs.com/id/deprecate-ember-error) | revert-ember-error |
 | 4.10          | [ember-string.from-ember-module](https://deprecations.emberjs.com/id/ember-string-from-ember-module) | |
 
 ### Miscellaneous

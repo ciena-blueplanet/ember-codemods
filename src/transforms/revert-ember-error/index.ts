@@ -1,6 +1,6 @@
-import type {API, FileInfo} from 'jscodeshift'
+import type { API, FileInfo } from 'jscodeshift';
 
-export const parser = 'ts'
+export const parser = 'ts';
 
 /**
  * TODO:
@@ -8,7 +8,7 @@ export const parser = 'ts'
  * Handle class based decorators version(? do we have any usages like this?). Think it's mainly classic
  */
 
-export default function transformer (fileInfo: FileInfo, api: API) {
+export default function transformer(fileInfo: FileInfo, api: API) {
   const j = api.jscodeshift;
 
   // Get the root of the current file's AST
@@ -17,37 +17,38 @@ export default function transformer (fileInfo: FileInfo, api: API) {
   // Find import declaration for EmberError
   const importDeclaration = root.find(j.ImportDeclaration, {
     source: {
-      type: 'Literal',
+      type: 'StringLiteral',
       value: '@ember/error',
-    },
+    }
   });
 
   let emberErrorImported = false;
 
-  console.log(importDeclaration.length)
-
   // Check if the specific import is found
   importDeclaration.forEach(p => {
+    // Ensure specifiers is defined and is an array
+    const specifiers = p.node.specifiers;
+    if (Array.isArray(specifiers)) {
+      specifiers.forEach(spec => {
+        // Ensure spec.local is defined
+        if (spec.local && spec.local.name === 'EmberError') {
+          emberErrorImported = true;
 
-    p.node.specifiers.forEach(spec => {
-      console.log(spec)
-      if (spec.local && spec.local.name === 'EmberError') {
-        emberErrorImported = true;
-        console.log('here')
-        // Remove the import if it's an unused variable
-        if (p.node.specifiers.length === 1) {
-          j(p).remove();
-        } else {
-          // Remove only EmberError specifier
-          j(p).replaceWith(
-              j.importDeclaration(
-                  p.node.specifiers.filter(s => s.imported.name !== 'EmberError'),
-                  p.node.source
-              )
-          );
+          // Remove the import if it's an unused variable
+          if (specifiers.length === 1) {
+            j(p).remove();
+          } else {
+            // Remove only EmberError specifier
+            j(p).replaceWith(
+                j.importDeclaration(
+                    specifiers.filter(s => s.local && s.local.name !== 'EmberError'),
+                    p.node.source
+                )
+            );
+          }
         }
-      }
-    });
+      });
+    }
   });
 
   // If EmberError was imported, replace its usage
@@ -62,5 +63,5 @@ export default function transformer (fileInfo: FileInfo, api: API) {
   }
 
   // Return the modified code
-  return root.toSource({ quote: "single", objectCurlySpacing: false});
+  return root.toSource({ quote: "single", objectCurlySpacing: false });
 }
