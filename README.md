@@ -19,8 +19,8 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | Introduced in | Deprecation | Transform |
 | ------------- | -- | --------- |
 | 3.21          | [ember-metal.get-with-default](https://deprecations.emberjs.com/id/ember-metal-get-with-default) | |
-| 3.24          | [ember-string.prototype-extensions](https://deprecations.emberjs.com/id/ember-string-prototype-extensions)  | |
-| 3.25          | [ember-string.htmlsafe-ishtmlsafe](https://deprecations.emberjs.com/id/ember-string-htmlsafe-ishtmlsafe) | |
+| 3.24          | [ember-string.prototype-extensions](https://deprecations.emberjs.com/id/ember-string-prototype-extensions)  | ember-string-codemod |
+| 3.25          | [ember-string.htmlsafe-ishtmlsafe](https://deprecations.emberjs.com/id/ember-string-htmlsafe-ishtmlsafe) | ember-string-htmlsafe-ishtmlsafe |
 | 3.26          | [ember-glimmer.link-to-positional-arguments](https://deprecations.emberjs.com/id/ember-glimmer-link-to-positional-arguments) | |
 | 3.26          | [ember-glimmer.with-syntax](https://deprecations.emberjs.com/id/ember-glimmer-with-syntax) | |
 | 3.26          | [has-block-and-has-block-params](https://deprecations.emberjs.com/id/has-block-and-has-block-params) | |
@@ -31,7 +31,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | 4.0           | [ember-polyfills.deprecate-assign](https://deprecations.emberjs.com/id/ember-polyfills-deprecate-assign) | |
 | 4.1           | [deprecate-auto-location](https://deprecations.emberjs.com/id/deprecate-auto-location) | |
 | 4.10          | [deprecate-ember-error](https://deprecations.emberjs.com/id/deprecate-ember-error) | revert-ember-error |
-| 4.10          | [ember-string.from-ember-module](https://deprecations.emberjs.com/id/ember-string-from-ember-module) | |
+| 4.10          | [ember-string.from-ember-module](https://deprecations.emberjs.com/id/ember-string-from-ember-module) | ember-string-codemod |
 
 ### Miscellaneous
 
