@@ -1,6 +1,6 @@
-import type { API, FileInfo } from 'jscodeshift';
+import type { API, FileInfo } from 'jscodeshift'
 
-export const parser = 'ts';
+export const parser = 'ts'
 
 /**
  * TODO:
@@ -9,10 +9,10 @@ export const parser = 'ts';
  */
 
 export default function transformer(fileInfo: FileInfo, api: API) {
-  const j = api.jscodeshift;
+  const j = api.jscodeshift
 
   // Get the root of the current file's AST
-  const root = j(fileInfo.source);
+  const root = j(fileInfo.source)
 
   // Find import declaration for EmberError
   const importDeclaration = root.find(j.ImportDeclaration, {
@@ -20,22 +20,22 @@ export default function transformer(fileInfo: FileInfo, api: API) {
       type: 'StringLiteral',
       value: '@ember/error',
     }
-  });
+  })
 
-  let emberErrorImported = false;
+  let emberErrorImported = false
 
   // Check if the specific import is found
   importDeclaration.forEach(p => {
     // Ensure specifiers is defined and is an array
-    const specifiers = p.node.specifiers;
+    const specifiers = p.node.specifiers
     if (Array.isArray(specifiers)) {
       specifiers.forEach(spec => {
         if (spec.local && spec.local.name === 'EmberError') {
-          emberErrorImported = true;
+          emberErrorImported = true
 
           // Remove the import if it's an unused variable
           if (specifiers.length === 1) {
-            j(p).remove();
+            j(p).remove()
           } else {
             // Remove only EmberError specifier
             j(p).replaceWith(
@@ -43,12 +43,12 @@ export default function transformer(fileInfo: FileInfo, api: API) {
                     specifiers.filter(s => s.local && s.local.name !== 'EmberError'),
                     p.node.source
                 )
-            );
+            )
           }
         }
-      });
+      })
     }
-  });
+  })
 
   // If EmberError was imported, replace its usage
   if (emberErrorImported) {
@@ -57,10 +57,10 @@ export default function transformer(fileInfo: FileInfo, api: API) {
         name: 'EmberError'
       }
     }).replaceWith(path => {
-      return j.newExpression(j.identifier('Error'), path.node.arguments);
-    });
+      return j.newExpression(j.identifier('Error'), path.node.arguments)
+    })
   }
 
   // Return the modified code
-  return root.toSource({ quote: "single", objectCurlySpacing: false });
+  return root.toSource({ quote: 'single', objectCurlySpacing: false })
 }
