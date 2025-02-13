@@ -30,7 +30,6 @@ export default function transformer(fileInfo: FileInfo, api: API) {
     const specifiers = p.node.specifiers;
     if (Array.isArray(specifiers)) {
       specifiers.forEach(spec => {
-        // Ensure spec.local is defined
         if (spec.local && spec.local.name === 'EmberError') {
           emberErrorImported = true;
 
