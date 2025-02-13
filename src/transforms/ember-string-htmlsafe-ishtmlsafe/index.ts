@@ -1,11 +1,12 @@
 import type {API, FileInfo, ImportSpecifier} from 'jscodeshift'
+import {Options} from "jscodeshift";
 
 export const parser = 'ts'
 
-export default function transformer(fileInfo: FileInfo, api: API) {
+export default function transformer(fileInfo: FileInfo, api: API, options: Options) {
     const j = api.jscodeshift
 
-    return j(fileInfo.source)
+    return j(fileInfo.source, options)
         .find(j.ImportDeclaration, {
             source: {
                 value: '@ember/string'

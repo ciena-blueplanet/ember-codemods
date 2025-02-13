@@ -3,8 +3,19 @@ import assert from 'node:assert'
 import path from 'node:path'
 import fs from 'fs'
 import jscodeshift from 'jscodeshift'
+import type { API, FileInfo, Options } from 'jscodeshift'
 
-function runTestCases(name, dir, testCases, transform, parser) {
+interface TestCase {
+    name: string
+    input: string
+    output: string
+}
+
+interface TransformFunction {
+    (fileInfo: FileInfo, api: API, options: Options): string
+}
+
+function runTestCases(name: string, dir: string, testCases: TestCase[], transform:TransformFunction, parser:string) {
     describe(name, () => {
         const fixtureDir = path.join(dir, 'fixtures')
 
@@ -17,7 +28,7 @@ function runTestCases(name, dir, testCases, transform, parser) {
 
                 const j = jscodeshift.withParser(parser)
 
-                const actualOutput = transform({path: inputPath, source}, {j, jscodeshift: j, stats: () => {}, report: () => {}})
+                const actualOutput = transform({path: inputPath, source}, {j, jscodeshift: j, stats: () => {}, report: () => {}}, {})
 
                 assert.equal(actualOutput.trim(), expectedOutput.trim())
             })
@@ -26,4 +37,4 @@ function runTestCases(name, dir, testCases, transform, parser) {
 
 }
 
-export default runTestCases;
+export default runTestCases

@@ -1,4 +1,5 @@
 import type { API, FileInfo } from 'jscodeshift'
+import {Options} from "jscodeshift";
 
 export const parser = 'ts'
 
@@ -8,11 +9,11 @@ export const parser = 'ts'
  * Handle class based decorators version(? do we have any usages like this?). Think it's mainly classic
  */
 
-export default function transformer(fileInfo: FileInfo, api: API) {
+export default function transformer(fileInfo: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift
 
   // Get the root of the current file's AST
-  const root = j(fileInfo.source)
+  const root = j(fileInfo.source, options)
 
   // Find import declaration for EmberError
   const importDeclaration = root.find(j.ImportDeclaration, {
