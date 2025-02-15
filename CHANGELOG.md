@@ -1,5 +1,11 @@
 # @ciena-org/ember-codemods
 
+## 0.3.0
+
+### Minor Changes
+
+- 613a7f7: Add "ember-string-codemod" and "ember-string-htmlsafe-ishtmlsafe" codemods for ember-string.prototype-extensions and ember-string.from-ember-module deprecations respectively.
+
 ## 0.2.0
 
 ### Minor Changes
