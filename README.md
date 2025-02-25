@@ -27,7 +27,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | 3.27          | [argument-less-helper-paren-less-invocation](https://deprecations.emberjs.com/id/argument-less-helper-paren-less-invocation) | |
 | 3.27          | [deprecated-run-loop-and-computed-dot-access](https://deprecations.emberjs.com/id/deprecated-run-loop-and-computed-dot-access) | |
 | 3.27          | [ember.built-in-components.import](https://deprecations.emberjs.com/id/ember-built-in-components-import) | |
-| 3.27          | [ember-global](https://deprecations.emberjs.com/id/ember-global) | |
+| 3.27          | [ember-global](https://deprecations.emberjs.com/id/ember-global) | [remove-global-ember](./src/transforms/remove-global-ember/) |
 | 4.0           | [ember-polyfills.deprecate-assign](https://deprecations.emberjs.com/id/ember-polyfills-deprecate-assign) | |
 | 4.1           | [deprecate-auto-location](https://deprecations.emberjs.com/id/deprecate-auto-location) | |
 | 4.10          | [deprecate-ember-error](https://deprecations.emberjs.com/id/deprecate-ember-error) | revert-ember-error |
