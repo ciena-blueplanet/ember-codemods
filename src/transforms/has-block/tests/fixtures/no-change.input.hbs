@@ -1,0 +1,22 @@
+<div class="something">
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    <div class="{{if (has-block) 'test' 'something'}}">
+      {{some-component test=(has-block)}}
+      <OtherComponent @something={{has-block}}>
+        <SomeOtherComponent @attr={{if (has-block) 10 11}} />
+      </OtherComponent>
+    </div>
+  {{/if}}
+  {{#if (has-block-params)}}
+    {{yield}}
+  {{else}}
+    <div class="{{if (has-block-params) 'test' 'something'}}">
+      {{some-component test=(has-block-params)}}
+      <OtherComponent @something={{has-block-params}}>
+        <SomeOtherComponent @attr={{if (has-block-params) 10 11}} />
+      </OtherComponent>
+    </div>
+  {{/if}}
+</div>
