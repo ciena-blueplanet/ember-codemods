@@ -23,7 +23,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | 3.25          | [ember-string.htmlsafe-ishtmlsafe](https://deprecations.emberjs.com/id/ember-string-htmlsafe-ishtmlsafe) | ember-string-htmlsafe-ishtmlsafe |
 | 3.26          | [ember-glimmer.link-to-positional-arguments](https://deprecations.emberjs.com/id/ember-glimmer-link-to-positional-arguments) | |
 | 3.26          | [ember-glimmer.with-syntax](https://deprecations.emberjs.com/id/ember-glimmer-with-syntax) | |
-| 3.26          | [has-block-and-has-block-params](https://deprecations.emberjs.com/id/has-block-and-has-block-params) | |
+| 3.26          | [has-block-and-has-block-params](https://deprecations.emberjs.com/id/has-block-and-has-block-params) | [has-block](./src/transforms/has-block/) |
 | 3.27          | [argument-less-helper-paren-less-invocation](https://deprecations.emberjs.com/id/argument-less-helper-paren-less-invocation) | |
 | 3.27          | [deprecated-run-loop-and-computed-dot-access](https://deprecations.emberjs.com/id/deprecated-run-loop-and-computed-dot-access) | |
 | 3.27          | [ember.built-in-components.import](https://deprecations.emberjs.com/id/ember-built-in-components-import) | |
