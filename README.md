@@ -18,7 +18,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 
 | Introduced in | Deprecation | Transform |
 | ------------- | -- | --------- |
-| 3.21          | [ember-metal.get-with-default](https://deprecations.emberjs.com/id/ember-metal-get-with-default) | |
+| 3.21          | [ember-metal.get-with-default](https://deprecations.emberjs.com/id/ember-metal-get-with-default) | [ember-getWithDefault-to-lodash-get](./src/transforms/ember-getWithDefault-to-lodash-get/) |
 | 3.24          | [ember-string.prototype-extensions](https://deprecations.emberjs.com/id/ember-string-prototype-extensions)  | ember-string-codemod |
 | 3.25          | [ember-string.htmlsafe-ishtmlsafe](https://deprecations.emberjs.com/id/ember-string-htmlsafe-ishtmlsafe) | ember-string-htmlsafe-ishtmlsafe |
 | 3.26          | [ember-glimmer.link-to-positional-arguments](https://deprecations.emberjs.com/id/ember-glimmer-link-to-positional-arguments) | |
@@ -38,6 +38,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | Transform | Description | Possible issues |
 | --------- | ----------- | --------------- |
 | [revert-computed-macro](./src/transforms/revert-computed-macro/)| Replace `computed` from `ember-macro-helpers` with `@ember/object` instead. | <ul><li>Will add variable even if not used from function before. Can just remove as need be (or PR fix), was not a common occurence in my code to have unused dependency</li></ul> |
+| [ember-getWithDefault-to-lodash-get](./src/transforms/ember-getWithDefault-to-lodash-get/) | Replace ember `getWithDefault` with lodash `get` instead | |
 
 ## Contributing
 
