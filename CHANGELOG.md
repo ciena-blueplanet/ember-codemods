@@ -1,5 +1,11 @@
 # @ciena-org/ember-codemods
 
+## 0.3.1
+
+### Patch Changes
+
+- 3920191: feat: Add remove-global-ember transform
+
 ## 0.3.0
 
 ### Minor Changes
