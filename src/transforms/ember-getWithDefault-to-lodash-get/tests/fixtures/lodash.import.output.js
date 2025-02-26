@@ -1,4 +1,5 @@
-import _, {get as getWithDefault} from 'lodash';
+import getWithDefault from 'lodash/get';
+import _ from 'lodash';
 
 const a = _.set(foo, 'bar', baz);
 const b = getWithDefault(foo, 'bar', baz);

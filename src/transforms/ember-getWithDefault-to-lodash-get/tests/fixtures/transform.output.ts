@@ -1,4 +1,4 @@
 // @ts-nocheck
-import get from 'lodash/get';
+import getWithDefault from 'lodash/get';
 import a from 'b';
-get(this, foo, 'bar');
+getWithDefault(this, foo, 'bar');
