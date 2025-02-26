@@ -39,6 +39,7 @@
     }
   },
   "dependencies": {
+    "ember-template-recast": "^6.1.5",
     "jscodeshift": "^17.1.2"
   },
   "devDependencies": {
