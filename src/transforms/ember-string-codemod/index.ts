@@ -129,9 +129,10 @@ export default function transformer(
     })
     .forEach((path) => {
       // Check if the method is called on lodash object
-      // @ts-expect-error jscodeshfit
       if (
+        // @ts-expect-error jscodeshfit
         path.value.callee.object.type === "Identifier" &&
+        // @ts-expect-error jscodeshfit
         path.value.callee.object.name === "_"
       ) {
         // Skip modification for lodash methods
@@ -226,6 +227,7 @@ export default function transformer(
       } else {
         // @ts-expect-error jscodeshfit
         path.node.id.properties = path.node.id.properties.filter(
+          // @ts-expect-error jscodeshfit
           (prop) => prop.key.name !== "String",
         );
       }
