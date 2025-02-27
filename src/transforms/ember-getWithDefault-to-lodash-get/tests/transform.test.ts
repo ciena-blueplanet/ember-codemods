@@ -1,4 +1,4 @@
-import runTestCases from '../../../utils/testHelper'
+import runTestCases from '#utils/testHelper.js'
 import transform, {parser} from '#transforms/ember-getWithDefault-to-lodash-get/index.js'
 
 const testCases = [
