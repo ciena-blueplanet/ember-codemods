@@ -1,0 +1,13 @@
+<LinkTo @route="about">About Us</LinkTo>
+<LinkTo @route="about">
+  About Us
+</LinkTo>
+<LinkTo @route="post" @model={{@post}}>
+  Read {{@post.title}}...
+</LinkTo>
+<LinkTo @route="post.comment" @models={{array @comment.post @comment}}>
+  Comment by {{@comment.author.name}} on {{@comment.date}}
+</LinkTo>
+<LinkTo @route="posts" @query={{hash direction="desc" showArchived=false}}>
+  Recent Posts
+</LinkTo>
