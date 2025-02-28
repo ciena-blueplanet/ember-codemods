@@ -1,6 +1,6 @@
 {
   "name": "@ciena-org/ember-codemods",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A collection of pretty good codemods for Ember",
   "scripts": {
     "build": "tsc",
