@@ -3,12 +3,6 @@ import {Options} from "jscodeshift";
 
 export const parser = 'ts'
 
-/**
- * TODO:
- * Determine if want to use get instead of getProperties
- * Handle class based decorators version(? do we have any usages like this?). Think it's mainly classic
- */
-
 export default function transformer(fileInfo: FileInfo, api: API, options: Options) {
   const j = api.jscodeshift
 
