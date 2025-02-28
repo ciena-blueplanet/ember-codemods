@@ -5,5 +5,8 @@
     "rootDir": "src",
     "outDir": "dist",
     "customConditions": ["ciena-org-ember-codemods-dev"]
-  }
+  },
+  "exclude" : [
+    "**/tests/fixtures/*"
+  ]
 }
