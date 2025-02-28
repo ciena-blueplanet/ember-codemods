@@ -12,7 +12,7 @@ interface TestCase {
 }
 
 interface TransformFunction {
-  (fileInfo: FileInfo, api: API, options: Options): string;
+  (fileInfo: FileInfo, api: API, options: Options): string | undefined;
 }
 
 function runTestCases(
@@ -40,7 +40,7 @@ function runTestCases(
           {},
         );
 
-        assert.equal(actualOutput.trim(), expectedOutput.trim());
+        assert.equal(actualOutput?.trim(), expectedOutput.trim());
       });
     });
   });
