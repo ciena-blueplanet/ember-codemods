@@ -1,0 +1,13 @@
+{{link-to "About Us" "about"}}
+{{#link-to "about"}}
+  About Us
+{{/link-to}}
+{{#link-to "post" @post}}
+  Read {{@post.title}}...
+{{/link-to}}
+{{#link-to "post.comment" @comment.post @comment}}
+  Comment by {{@comment.author.name}} on {{@comment.date}}
+{{/link-to}}
+{{#link-to "posts" (query-params direction="desc" showArchived=false)}}
+  Recent Posts
+{{/link-to}}
