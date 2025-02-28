@@ -26,11 +26,12 @@ export default function transformer(
       );
     variableDeclarator.forEach((path) => {
       const init = path.value.init;
-      // @ts-expect-error jscodeshift type error
       const hasLocationType =
         init &&
+        // @ts-expect-error jscodeshift type error
         init.properties.some(
           (prop: ObjectProperty) =>
+            // @ts-expect-error jscodeshift type error
             prop.key.name === "locationType" && prop.value.value === "auto",
         );
 
