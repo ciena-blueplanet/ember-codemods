@@ -1,0 +1,15 @@
+{{#let (hash name="Ben" age=4) as |person|}}
+  Hi {{person.name}}, you are {{person.age}} years old.
+{{/let}}
+{{#let user.posts as |blogPosts|}}
+{{#if blogPosts}}
+  There are {{blogPosts.length}} blog posts
+{{/if}}
+{{/let}}
+{{#let user.posts as |blogPosts|}}
+{{#if blogPosts}}
+  There are {{blogPosts.length}} blog posts
+{{else}}
+  There are no blog posts
+{{/if}}
+{{/let}}
