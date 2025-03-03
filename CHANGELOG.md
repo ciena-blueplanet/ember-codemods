@@ -1,5 +1,13 @@
 # @ciena-org/ember-codemods
 
+## 0.3.3
+
+### Patch Changes
+
+- b73507e: feat: Add remove-run-loop-and-computed-dot-access transform to address Run loop and computed dot access deprecation
+- 9b47834: feat: Add `link-to-positional` transform to address `ember-glimmer.link-to-positional-arguments` deprecation
+- 42b2e7c: Add built-in-components-import transform for handling legacy built in template imports
+
 ## 0.3.2
 
 ### Patch Changes
