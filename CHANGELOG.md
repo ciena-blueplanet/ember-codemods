@@ -1,5 +1,12 @@
 # @ciena-org/ember-codemods
 
+## 0.3.4
+
+### Patch Changes
+
+- a2bdce9: Add codemods for ember-polyfills.deprecate-assign and deprecate-auto-location"
+- 3f80789: Add replace-with-syntax transform to address `ember-glimmer.with-syntax` deprecation
+
 ## 0.3.3
 
 ### Patch Changes
