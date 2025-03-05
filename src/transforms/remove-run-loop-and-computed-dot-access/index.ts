@@ -1,10 +1,4 @@
-import {
-  API,
-  FileInfo,
-  ImportDeclaration,
-  JSCodeshift,
-  Options,
-} from "jscodeshift";
+import { API, FileInfo, JSCodeshift, Options } from "jscodeshift";
 
 export const parser = "ts";
 
@@ -116,28 +110,6 @@ export default function transformer(
     });
 
   if (hasComputedUsage || hasRunUsage) {
-    // Remove existing comuted/run imports
-    root.find(j.ImportDeclaration).forEach((path) => {
-      const node = path.value as ImportDeclaration;
-      if (node.source.value === "@ember/object") {
-        node.specifiers = node.specifiers?.filter(
-          (spec) =>
-            spec.type === "ImportSpecifier" &&
-            spec.imported.name !== "computed",
-        );
-      }
-      if (node.source.value === "@ember/runloop") {
-        node.specifiers = node.specifiers?.filter(
-          (spec) =>
-            spec.type === "ImportSpecifier" && spec.imported.name !== "run",
-        );
-      }
-
-      if (node.specifiers?.length === 0) {
-        j(path).remove();
-      }
-    });
-
     //Insert new imports
     if (runImports.size > 0) {
       const newRunImport = j.importDeclaration(
