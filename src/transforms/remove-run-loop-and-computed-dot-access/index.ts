@@ -115,18 +115,40 @@ export default function transformer(
       }
     });
 
+  // check if run or import are still used elsewhere
+  const isComputedRequired =
+    root
+      .find(j.CallExpression, {
+        callee: { type: "Identifier", name: "computed" },
+      })
+      .size() > 0 ||
+    root
+      .find(j.MemberExpression, {
+        object: { type: "Identifier", name: "computed" },
+      })
+      .size() > 0;
+  const isRunRequired =
+    root
+      .find(j.CallExpression, { callee: { type: "Identifier", name: "run" } })
+      .size() > 0 ||
+    root
+      .find(j.MemberExpression, {
+        object: { type: "Identifier", name: "run" },
+      })
+      .size() > 0;
+
   if (hasComputedUsage || hasRunUsage) {
     // Remove existing comuted/run imports
     root.find(j.ImportDeclaration).forEach((path) => {
       const node = path.value as ImportDeclaration;
-      if (node.source.value === "@ember/object") {
+      if (node.source.value === "@ember/object" && !isComputedRequired) {
         node.specifiers = node.specifiers?.filter(
           (spec) =>
             spec.type === "ImportSpecifier" &&
             spec.imported.name !== "computed",
         );
       }
-      if (node.source.value === "@ember/runloop") {
+      if (node.source.value === "@ember/runloop" && !isRunRequired) {
         node.specifiers = node.specifiers?.filter(
           (spec) =>
             spec.type === "ImportSpecifier" && spec.imported.name !== "run",
