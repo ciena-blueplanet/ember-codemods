@@ -1,13 +1,101 @@
-import {
+import type {
   FileInfo,
   API,
   JSCodeshift,
   Collection,
   ImportSpecifier,
   Options,
+  ASTPath,
 } from "jscodeshift";
 
 export const parser = "ts";
+
+function handleConfigFile({
+  root,
+  j,
+}: {
+  j: JSCodeshift;
+  root: Collection<ASTPath>;
+}) {
+  const envConstantName = root
+    .find(j.ReturnStatement)
+    .find(j.Identifier)
+    .nodes()[0]?.name;
+
+  const envDeclarator = root
+    .find(j.VariableDeclarator)
+    .filter(
+      (node) =>
+        node.value.id.type === "Identifier" &&
+        node.value.id.name === envConstantName,
+    );
+
+  if (envDeclarator.length > 0) {
+    const emberEnvProp = envDeclarator
+      .find(j.ObjectProperty)
+      .filter(
+        (node) =>
+          node.value.key.type === "Identifier" &&
+          node.value.key.name === "EmberENV",
+      );
+
+    const stringProtoPropReplacement = j.objectProperty(
+      j.identifier("String"),
+      j.literal(false),
+    );
+
+    const extendProtoPropReplacement = j.objectProperty(
+      j.identifier("EXTEND_PROTOTYPES"),
+      j.objectExpression([stringProtoPropReplacement]),
+    );
+
+    if (emberEnvProp.length > 0) {
+      const extendProtoProp = emberEnvProp
+        .find(j.ObjectProperty)
+        .filter(
+          (node) =>
+            node.value.key.type === "Identifier" &&
+            node.value.key.name === "EXTEND_PROTOTYPES",
+        );
+
+      if (extendProtoProp.length > 0) {
+        const stringProtoProp = extendProtoProp
+          .find(j.ObjectProperty)
+          .filter(
+            (node) =>
+              node.value.key.type === "Identifier" &&
+              node.value.key.name === "String",
+          );
+
+        if (stringProtoProp.length > 0) {
+          stringProtoProp.replaceWith(stringProtoPropReplacement);
+        } else {
+          extendProtoProp
+            .find(j.ObjectExpression)
+            .nodes()[0]
+            .properties.push(stringProtoPropReplacement);
+        }
+      } else {
+        emberEnvProp
+          .find(j.ObjectExpression)
+          .nodes()[0]
+          .properties.push(extendProtoPropReplacement);
+      }
+    } else {
+      envDeclarator
+        .find(j.ObjectExpression)
+        .nodes()[0]
+        .properties.push(
+          j.objectProperty(
+            j.identifier("EmberENV"),
+            j.objectExpression([extendProtoPropReplacement]),
+          ),
+        );
+    }
+  }
+
+  return root.toSource({ quote: "single", objectCurlySpacing: false });
+}
 
 export default function transformer(
   fileInfo: FileInfo,
@@ -16,6 +104,11 @@ export default function transformer(
 ) {
   const j: JSCodeshift = api.jscodeshift;
   const root = j(fileInfo.source, options);
+
+  // Disable String prototype extensions in the config file
+  if (fileInfo.path.includes("config/environment.js")) {
+    return handleConfigFile({ j, root });
+  }
 
   const stringMethods: string[] = [
     "capitalize",
@@ -28,10 +121,10 @@ export default function transformer(
   ];
   const templateMethods: string[] = ["htmlSafe", "isHTMLSafe"];
   const allMethods: string[] = [...stringMethods, ...templateMethods];
-  const usedStringMethods: Set<string> = new Set();
-  const usedTemplateMethods: Set<string> = new Set();
+  const usedStringMethods = new Set<string>();
+  const usedTemplateMethods = new Set<string>();
 
-  let aliasName: string = "";
+  let aliasName = "";
 
   // Find destructurings from Ember
   const emberDestructurings = root.find(j.VariableDeclarator, {
