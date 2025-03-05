@@ -1,4 +1,4 @@
-import { API, FileInfo, JSCodeshift, Options } from "jscodeshift";
+import type { API, FileInfo, JSCodeshift, Options } from "jscodeshift";
 
 export const parser = "ts";
 

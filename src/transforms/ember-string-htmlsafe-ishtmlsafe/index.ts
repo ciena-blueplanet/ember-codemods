@@ -1,5 +1,5 @@
 import type { API, FileInfo, ImportSpecifier } from "jscodeshift";
-import { Options } from "jscodeshift";
+import type { Options } from "jscodeshift";
 
 export const parser = "ts";
 

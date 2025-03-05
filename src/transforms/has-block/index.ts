@@ -1,5 +1,6 @@
 import type { FileInfo } from "jscodeshift";
-import { transform, TransformPluginBuilder } from "ember-template-recast";
+import type { TransformPluginBuilder } from "ember-template-recast";
+import { transform } from "ember-template-recast";
 
 export const parser = "ts";
 
