@@ -1,4 +1,10 @@
-import { API, FileInfo, JSCodeshift, Options } from "jscodeshift";
+import {
+  API,
+  FileInfo,
+  ImportDeclaration,
+  JSCodeshift,
+  Options,
+} from "jscodeshift";
 
 export const parser = "ts";
 
@@ -109,7 +115,57 @@ export default function transformer(
       }
     });
 
+  // check if run or import are still used elsewhere
+  const isComputedRequired =
+    root
+      .find(j.CallExpression, {
+        callee: { type: "Identifier", name: "computed" },
+      })
+      .size() > 0 ||
+    root
+      .find(j.MemberExpression, {
+        object: { type: "Identifier", name: "computed" },
+      })
+      .size() > 0;
+  const isRunRequired =
+    root
+      .find(j.CallExpression, { callee: { type: "Identifier", name: "run" } })
+      .size() > 0 ||
+    root
+      .find(j.MemberExpression, {
+        object: { type: "Identifier", name: "run" },
+      })
+      .size() > 0;
+
   if (hasComputedUsage || hasRunUsage) {
+    // Remove existing comuted/run imports
+    root.find(j.ImportDeclaration).forEach((path) => {
+      const node = path.value as ImportDeclaration;
+      console.log("isComputedRequired", isComputedRequired);
+      console.log("node.source.value", node.source.value);
+      if (node.source.value === "@ember/object" && !isComputedRequired) {
+        console.log("isComputedRequired is false", isComputedRequired);
+        node.specifiers = node.specifiers?.filter(
+          (spec) =>
+            spec.type === "ImportSpecifier" &&
+            spec.imported.name !== "computed",
+        );
+        console.log("node.specifiers.length", (node.specifiers || []).length);
+      }
+      if (node.source.value === "@ember/runloop" && !isRunRequired) {
+        console.log("isRunRequired", isRunRequired);
+        node.specifiers = node.specifiers?.filter(
+          (spec) =>
+            spec.type === "ImportSpecifier" && spec.imported.name !== "run",
+        );
+        console.log("node.specifiers.length", (node.specifiers || []).length);
+      }
+
+      if (node.specifiers?.length === 0) {
+        j(path).remove();
+      }
+    });
+
     //Insert new imports
     if (runImports.size > 0) {
       const newRunImport = j.importDeclaration(
