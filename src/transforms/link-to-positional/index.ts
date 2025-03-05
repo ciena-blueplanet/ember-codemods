@@ -1,6 +1,6 @@
 import type { FileInfo } from "jscodeshift";
-import { transform, TransformPluginBuilder } from "ember-template-recast";
-import type { Syntax } from "ember-template-recast";
+import { transform } from "ember-template-recast";
+import type { Syntax, TransformPluginBuilder } from "ember-template-recast";
 import type { ASTv1 as AST } from "@glimmer/syntax";
 
 export const parser = "ts";
