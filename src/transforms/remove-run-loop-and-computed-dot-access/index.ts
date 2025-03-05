@@ -141,24 +141,18 @@ export default function transformer(
     // Remove existing comuted/run imports
     root.find(j.ImportDeclaration).forEach((path) => {
       const node = path.value as ImportDeclaration;
-      console.log("isComputedRequired", isComputedRequired);
-      console.log("node.source.value", node.source.value);
       if (node.source.value === "@ember/object" && !isComputedRequired) {
-        console.log("isComputedRequired is false", isComputedRequired);
         node.specifiers = node.specifiers?.filter(
           (spec) =>
             spec.type === "ImportSpecifier" &&
             spec.imported.name !== "computed",
         );
-        console.log("node.specifiers.length", (node.specifiers || []).length);
       }
       if (node.source.value === "@ember/runloop" && !isRunRequired) {
-        console.log("isRunRequired", isRunRequired);
         node.specifiers = node.specifiers?.filter(
           (spec) =>
             spec.type === "ImportSpecifier" && spec.imported.name !== "run",
         );
-        console.log("node.specifiers.length", (node.specifiers || []).length);
       }
 
       if (node.specifiers?.length === 0) {
