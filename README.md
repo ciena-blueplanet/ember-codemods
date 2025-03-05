@@ -22,7 +22,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | 3.24          | [ember-string.prototype-extensions](https://deprecations.emberjs.com/id/ember-string-prototype-extensions)  | [ember-string-codemod](./src/transforms/ember-string-codemod/) |
 | 3.25          | [ember-string.htmlsafe-ishtmlsafe](https://deprecations.emberjs.com/id/ember-string-htmlsafe-ishtmlsafe) | [ember-string-htmlsafe-ishtmlsafe](./src/transforms/ember-string-htmlsafe-ishtmlsafe/) |
 | 3.26          | [ember-glimmer.link-to-positional-arguments](https://deprecations.emberjs.com/id/ember-glimmer-link-to-positional-arguments) | [link-to-positional](./src/transforms/link-to-positional) |
-| 3.26          | [ember-glimmer.with-syntax](https://deprecations.emberjs.com/id/ember-glimmer-with-syntax) | [replace-with-styntax](./src/transforms/replace-with-syntax/) |
+| 3.26          | [ember-glimmer.with-syntax](https://deprecations.emberjs.com/id/ember-glimmer-with-syntax) | [replace-with-syntax](./src/transforms/replace-with-syntax/) |
 | 3.26          | [has-block-and-has-block-params](https://deprecations.emberjs.com/id/has-block-and-has-block-params) | [has-block](./src/transforms/has-block/) |
 | 3.27          | [deprecated-run-loop-and-computed-dot-access](https://deprecations.emberjs.com/id/deprecated-run-loop-and-computed-dot-access) | [remove-run-loop-and-computed-dot-access](./src/transforms/remove-run-loop-and-computed-dot-access/)|
 | 3.27          | [ember.built-in-components.import](https://deprecations.emberjs.com/id/ember-built-in-components-import) | [built-in-components-import](./src/transforms/built-in-components-import/)|
