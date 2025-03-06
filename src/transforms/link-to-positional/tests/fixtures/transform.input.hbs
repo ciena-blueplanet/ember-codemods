@@ -11,3 +11,9 @@
 {{#link-to "posts" (query-params direction="desc" showArchived=false)}}
   Recent Posts
 {{/link-to}}
+{{#link-to "posts" class="foo"}}
+  Recent Posts
+{{/link-to}}
+{{#link-to "posts" @comment.post @comment (query-params direction="desc" showArchived=false) class="foo"}}
+  Recent Posts
+{{/link-to}}

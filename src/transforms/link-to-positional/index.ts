@@ -64,6 +64,25 @@ function getLinkToElement({
       );
     }
 
+    node.hash.pairs.forEach(({ key, value: node }) => {
+      switch (node.type) {
+        case "StringLiteral":
+          elementAttrs.push(builders.attr(key, builders.text(node.value)));
+          break;
+        case "SubExpression":
+          elementAttrs.push(
+            builders.attr(
+              key,
+              builders.mustache(node.path, node.params, node.hash),
+            ),
+          );
+          break;
+        default:
+          elementAttrs.push(builders.attr(key, builders.mustache(node)));
+          break;
+      }
+    });
+
     return builders.element("LinkTo", {
       attrs: elementAttrs,
       children: linkText

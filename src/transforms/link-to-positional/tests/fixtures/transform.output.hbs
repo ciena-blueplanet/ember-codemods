@@ -11,3 +11,9 @@
 <LinkTo @route="posts" @query={{hash direction="desc" showArchived=false}}>
   Recent Posts
 </LinkTo>
+<LinkTo @route="posts" class="foo">
+  Recent Posts
+</LinkTo>
+<LinkTo @route="posts" @models={{array @comment.post @comment}} @query={{hash direction="desc" showArchived=false}} class="foo">
+  Recent Posts
+</LinkTo>
