@@ -1,5 +1,14 @@
 # @ciena-org/ember-codemods
 
+## 0.3.5
+
+### Patch Changes
+
+- b8d61e3: Preserve the import statements for computed and run in the remove-run-loop-and-computed-dot-access transform if required
+- af2a2ec: Add support for non-string routes and non-positional routes to link-to-positional transform
+- 49d007c: Fix attributes being removed by `link-to-positional` transform
+- b4db25a: Disable string prototype config with ember-string-codemod transform
+
 ## 0.3.4
 
 ### Patch Changes
