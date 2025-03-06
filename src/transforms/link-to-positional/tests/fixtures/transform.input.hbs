@@ -1,5 +1,17 @@
 {{link-to "About Us" "about"}}
+{{link-to "About Us" route="about"}}
+{{link-to "About Us" @post.title}}
+{{link-to "About Us" route=@post.title}}
 {{#link-to "about"}}
+  About Us
+{{/link-to}}
+{{#link-to route="about"}}
+  About Us
+{{/link-to}}
+{{#link-to @post.title}}
+  About Us
+{{/link-to}}
+{{#link-to route=@post.title}}
   About Us
 {{/link-to}}
 {{#link-to "post" @post}}
