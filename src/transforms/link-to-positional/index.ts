@@ -13,23 +13,56 @@ function getLinkToElement({
   builders: Syntax["builders"];
 }): ReturnType<Syntax["builders"]["element"]> | undefined {
   if (node.path.type === "PathExpression" && node.path.original === "link-to") {
-    const stringParamNodes = node.params.filter(
-      (paramNode) => paramNode.type === "StringLiteral",
-    );
+    const elementAttrs = [];
+    let body = undefined;
+    let linkRouteNode = node.hash.pairs.find(
+      ({ key }) => key === "route",
+    )?.value;
+    let modelParamsStartIndex = 1;
 
-    let linkText: string | undefined = stringParamNodes[0].value;
-    let linkRoute = stringParamNodes[1]?.value;
+    if (node.type === "MustacheStatement") {
+      body = [builders.text((node.params[0] as AST.StringLiteral).value)];
 
-    if (stringParamNodes.length === 1) {
-      linkRoute = linkText;
-      linkText = undefined;
+      if (!linkRouteNode) {
+        linkRouteNode = node.params[1];
+        modelParamsStartIndex = 2;
+      }
+    } else if (node.type === "BlockStatement") {
+      body = node.program.body;
+
+      if (!linkRouteNode) {
+        linkRouteNode = node.params[0];
+      }
     }
 
-    const elementAttrs = [builders.attr("@route", builders.text(linkRoute))];
+    switch (linkRouteNode!.type) {
+      case "StringLiteral":
+        elementAttrs.push(
+          builders.attr("@route", builders.text(linkRouteNode!.value)),
+        );
+        break;
+      case "SubExpression":
+        elementAttrs.push(
+          builders.attr(
+            "@route",
+            builders.mustache(
+              linkRouteNode!.path,
+              linkRouteNode!.params,
+              linkRouteNode!.hash,
+            ),
+          ),
+        );
+        break;
+      default:
+        elementAttrs.push(
+          builders.attr("@route", builders.mustache(linkRouteNode!)),
+        );
+        break;
+    }
 
-    const modelParamNodes = node.params.filter(
-      (paramNode) => paramNode.type === "PathExpression",
-    );
+    const modelParamNodes = node.params
+      .slice(modelParamsStartIndex)
+      .filter((paramNode) => paramNode.type === "PathExpression");
 
     if (modelParamNodes.length === 1) {
       elementAttrs.push(
@@ -64,30 +97,30 @@ function getLinkToElement({
       );
     }
 
-    node.hash.pairs.forEach(({ key, value: node }) => {
-      switch (node.type) {
-        case "StringLiteral":
-          elementAttrs.push(builders.attr(key, builders.text(node.value)));
-          break;
-        case "SubExpression":
-          elementAttrs.push(
-            builders.attr(
-              key,
-              builders.mustache(node.path, node.params, node.hash),
-            ),
-          );
-          break;
-        default:
-          elementAttrs.push(builders.attr(key, builders.mustache(node)));
-          break;
-      }
-    });
+    node.hash.pairs
+      .filter(({ key }) => key !== "route")
+      .forEach(({ key, value: node }) => {
+        switch (node.type) {
+          case "StringLiteral":
+            elementAttrs.push(builders.attr(key, builders.text(node.value)));
+            break;
+          case "SubExpression":
+            elementAttrs.push(
+              builders.attr(
+                key,
+                builders.mustache(node.path, node.params, node.hash),
+              ),
+            );
+            break;
+          default:
+            elementAttrs.push(builders.attr(key, builders.mustache(node)));
+            break;
+        }
+      });
 
     return builders.element("LinkTo", {
       attrs: elementAttrs,
-      children: linkText
-        ? [builders.text(linkText)]
-        : (node as AST.BlockStatement).program.body,
+      children: body,
     });
   }
 }
