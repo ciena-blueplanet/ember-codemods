@@ -1,0 +1,8 @@
+{{code-snippet name='snippet.hbs'}}
+{{code-snippet name=@snippetPath}}
+{{code-snippet name=this.snippetPath}}
+{{code-snippet name=(get-name 'snippet')}}
+<CodeSnippet @name="snippet.hbs"/>
+<CodeSnippet @name={{@snippetPath}}/>
+<CodeSnippet @name={{this.snippetPath}}/>
+<CodeSnippet @name={{get-name 'snippet'}}/>
