@@ -18,95 +18,131 @@ export default function transformer(
   const root = j(fileInfo.source, options);
 
   let isAssignImportedFromEmberPolyfills = false;
+  let isMergeImported = false;
 
-  // Check for assign import from @ember/polyfills
+  // Check for assign or merge import from @ember/polyfills
   root.find(j.ImportDeclaration).forEach((path) => {
     if (path.node.source.value === "@ember/polyfills") {
       const specifiers = path.node.specifiers;
       if (Array.isArray(specifiers)) {
         specifiers.forEach((specifier) => {
-          if (specifier.local && specifier.local.name === "assign") {
-            isAssignImportedFromEmberPolyfills = true;
-            j(path).replaceWith(
-              j.importDeclaration(
-                specifiers.filter(
-                  (s) => !!(s.local && s.local.name !== "assign"),
-                ),
-                j.literal("@ember/polyfills"),
-              ),
-            );
+          if (specifier.local) {
+            if (specifier.local.name === "assign") {
+              isAssignImportedFromEmberPolyfills = true;
+            }
+            if (specifier.local.name === "merge") {
+              isMergeImported = true;
+            }
           }
         });
-        // @ts-expect-error jscodeshfit jscodeshift type error
-        if (path.node.specifiers.length === 0) {
+
+        // Remove assign and merge from imports
+        const filteredSpecifiers = specifiers.filter(
+          (s) =>
+            s.local && s.local.name !== "assign" && s.local.name !== "merge",
+        );
+
+        // Replace or remove import declaration
+        if (filteredSpecifiers.length > 0) {
+          j(path).replaceWith(
+            j.importDeclaration(
+              filteredSpecifiers,
+              j.literal("@ember/polyfills"),
+            ),
+          );
+        } else {
           j(path).remove();
         }
       }
     }
   });
 
-  let foundAssign = false;
-
-  // Check for direct usage of Ember.assign
-  root
-    .find(j.MemberExpression, {
-      object: {
-        name: "Ember",
-      },
-      property: {
-        name: "assign",
-      },
-    })
-    .forEach((path) => {
-      // Replace Ember.assign with Object.assign
+  // Replace direct usage of Ember.assign and Ember.merge
+  root.find(j.MemberExpression).forEach((path) => {
+    if (
+      // @ts-expect-error jscodeshift type error
+      path.node.object.name === "Ember" &&
+      // @ts-expect-error jscodeshift type error
+      (path.node.property.name === "assign" ||
+        path.node.property.name === "merge")
+    ) {
       j(path).replaceWith(
         j.memberExpression(j.identifier("Object"), j.identifier("assign")),
       );
-    });
+    }
+  });
 
-  // Find variable declarators where Ember is destructured to get assign
+  let foundAssign = false;
+  let foundMerge = false;
+
+  // Handle destructured assign and merge from Ember
   root
     .find(j.VariableDeclarator, {
-      id: {
-        type: "ObjectPattern",
-      },
-      init: {
-        name: "Ember",
-      },
+      id: { type: "ObjectPattern" },
+      init: { name: "Ember" },
     })
     .forEach((path) => {
-      // @ts-expect-error jscodeshfit jscodeshift type error
-      path.node.id.properties.forEach((property: ObjectProperty) => {
-        // @ts-expect-error jscodeshfit
-        if (property.key.name === "assign") {
-          foundAssign = true;
-          // @ts-expect-error jscodeshfit jscodeshift type error
-          path.node.id.properties = path.node.id.properties.filter(
-            // @ts-expect-error jscodeshfit jscodeshift type error
-            (p: ObjectProperty) => p.key.name !== "assign",
-          );
-        }
-      });
-      // @ts-expect-error jscodeshfit jscodeshift type error
+      // @ts-expect-error jscodeshift type error
+      path.node.id.properties = path.node.id.properties.filter(
+        (p: ObjectProperty) => {
+          // @ts-expect-error jscodeshift type error
+          if (p.key.name === "assign") {
+            foundAssign = true;
+          }
+          // @ts-expect-error jscodeshift type error
+          return p.key.name !== "assign";
+        },
+      );
+
+      // @ts-expect-error jscodeshift type error
+      path.node.id.properties = path.node.id.properties.filter(
+        (p: ObjectProperty) => {
+          // @ts-expect-error jscodeshift type error
+          if (p.key.name === "merge") {
+            foundMerge = true;
+          }
+          // @ts-expect-error jscodeshift type error
+          return p.key.name !== "merge";
+        },
+      );
+
+      // @ts-expect-error jscodeshift type error
       if (path.node.id.properties.length === 0) {
         j(path.parent).remove();
       }
     });
 
+  // Replace calls to assign or merge
   if (isAssignImportedFromEmberPolyfills || foundAssign) {
-    root
-      .find(j.CallExpression, {
-        callee: {
-          type: "Identifier",
-          name: "assign",
-        },
-      })
-      .replaceWith((path) => {
-        return j.callExpression(
-          j.memberExpression(j.identifier("Object"), j.identifier("assign")),
-          path.node.arguments,
+    root.find(j.CallExpression).forEach((path) => {
+      if (
+        path.node.callee.type === "Identifier" &&
+        path.node.callee.name === "assign"
+      ) {
+        j(path).replaceWith(
+          j.callExpression(
+            j.memberExpression(j.identifier("Object"), j.identifier("assign")),
+            path.node.arguments,
+          ),
         );
-      });
+      }
+    });
+  }
+
+  if (isMergeImported || foundMerge) {
+    root.find(j.CallExpression).forEach((path) => {
+      if (
+        path.node.callee.type === "Identifier" &&
+        path.node.callee.name === "merge"
+      ) {
+        j(path).replaceWith(
+          j.callExpression(
+            j.memberExpression(j.identifier("Object"), j.identifier("assign")),
+            path.node.arguments,
+          ),
+        );
+      }
+    });
   }
 
   return root.toSource({ quote: "single", objectCurlySpacing: false });

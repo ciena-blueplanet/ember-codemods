@@ -4,6 +4,16 @@ import transform, { parser } from "#transforms/deprecate-ember-assign/index.js";
 const testCases = [
   {
     name: "should handle polyfills assign import in js",
+    input: "ember-merge.transform.input.js",
+    output: "ember-merge.transform.output.js",
+  },
+  {
+    name: "should handle polyfills assign import in js",
+    input: "ember-assign-merge.transform.input.js",
+    output: "ember-assign-merge.transform.output.js",
+  },
+  {
+    name: "should handle polyfills assign import in js",
     input: "polyfills-assign.transform.input.js",
     output: "polyfills-assign.transform.output.js",
   },
