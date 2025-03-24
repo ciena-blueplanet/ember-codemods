@@ -1,5 +1,11 @@
 # @ciena-org/ember-codemods
 
+## 0.3.7
+
+### Patch Changes
+
+- b3c4e9d: Handle ember/polyfills merge deprecation
+
 ## 0.3.6
 
 ### Patch Changes
