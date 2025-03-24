@@ -27,7 +27,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | 3.27          | [deprecated-run-loop-and-computed-dot-access](https://deprecations.emberjs.com/id/deprecated-run-loop-and-computed-dot-access) | [remove-run-loop-and-computed-dot-access](./src/transforms/remove-run-loop-and-computed-dot-access/)|
 | 3.27          | [ember.built-in-components.import](https://deprecations.emberjs.com/id/ember-built-in-components-import) | [built-in-components-import](./src/transforms/built-in-components-import/)|
 | 3.27          | [ember-global](https://deprecations.emberjs.com/id/ember-global) | [remove-global-ember](./src/transforms/remove-global-ember/) |
-| 4.0           | [ember-polyfills.deprecate-assign](https://deprecations.emberjs.com/id/ember-polyfills-deprecate-assign) | [deprecate-ember-assign](./src/transforms/deprecate-ember-assign/) |
+| 4.0           | [ember-polyfills.deprecate-assign](https://deprecations.emberjs.com/id/ember-polyfills-deprecate-assign) / [ember-polyfills.deprecate-merge](https://deprecations.emberjs.com/id/ember-polyfills-deprecate-merge/) | [deprecate-ember-polyfills](./src/transforms/deprecate-ember-polyfills/) |
 | 4.1           | [deprecate-auto-location](https://deprecations.emberjs.com/id/deprecate-auto-location) | [deprecate-auto-location](./src/transforms/deprecate-auto-location/) |
 | 4.10          | [deprecate-ember-error](https://deprecations.emberjs.com/id/deprecate-ember-error) | [revert-ember-error](./src/transforms/revert-ember-error/) |
 | 4.10          | [ember-string.from-ember-module](https://deprecations.emberjs.com/id/ember-string-from-ember-module) | [ember-string-codemod](./src/transforms/ember-string-codemod/) |
