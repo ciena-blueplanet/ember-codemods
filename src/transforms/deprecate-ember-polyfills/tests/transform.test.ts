@@ -1,11 +1,18 @@
 import runTestCases from "../../../utils/testHelper";
-import transform, { parser } from "#transforms/deprecate-ember-assign/index.js";
+import transform, {
+  parser,
+} from "#transforms/deprecate-ember-polyfills/index.js";
 
 const testCases = [
   {
     name: "should handle polyfills assign import in js",
     input: "ember-merge.transform.input.js",
     output: "ember-merge.transform.output.js",
+  },
+  {
+    name: "should handle polyfills assign import in js",
+    input: "import-merge.transform.input.js",
+    output: "import-merge.transform.output.js",
   },
   {
     name: "should handle polyfills assign import in js",
@@ -39,4 +46,10 @@ const testCases = [
   },
 ];
 
-runTestCases("deprecate-ember-assign", __dirname, testCases, transform, parser);
+runTestCases(
+  "deprecate-ember-polyfills",
+  __dirname,
+  testCases,
+  transform,
+  parser,
+);

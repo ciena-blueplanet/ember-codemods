@@ -64,6 +64,7 @@ export default function transformer(
       path.node.object.name === "Ember" &&
       // @ts-expect-error jscodeshift type error
       (path.node.property.name === "assign" ||
+        // @ts-expect-error jscodeshift type error
         path.node.property.name === "merge")
     ) {
       j(path).replaceWith(
