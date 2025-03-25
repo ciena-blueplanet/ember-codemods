@@ -32,7 +32,6 @@ function getCodeSnippetHelper({
     builders.hash(),
     builders.program(
       [
-        builders.text("\n"),
         builders.element("pre", {
           attrs: [
             builders.attr(
@@ -42,7 +41,6 @@ function getCodeSnippetHelper({
           ],
           children: [builders.mustache(builders.path("snippet.source"))],
         }),
-        builders.text("\n"),
       ],
       ["snippet"],
     ),
