@@ -1,24 +1,8 @@
-{{#let (get-code-snippet 'snippet.hbs') as |snippet|}}
-<pre class={{snippet.language}}>{{snippet.source}}</pre>
-{{/let}}
-{{#let (get-code-snippet @snippetPath) as |snippet|}}
-<pre class={{snippet.language}}>{{snippet.source}}</pre>
-{{/let}}
-{{#let (get-code-snippet this.snippetPath) as |snippet|}}
-<pre class={{snippet.language}}>{{snippet.source}}</pre>
-{{/let}}
-{{#let (get-code-snippet (get-name 'snippet')) as |snippet|}}
-<pre class={{snippet.language}}>{{snippet.source}}</pre>
-{{/let}}
-{{#let (get-code-snippet "snippet.hbs") as |snippet|}}
-<pre class={{snippet.language}}>{{snippet.source}}</pre>
-{{/let}}
-{{#let (get-code-snippet @snippetPath) as |snippet|}}
-<pre class={{snippet.language}}>{{snippet.source}}</pre>
-{{/let}}
-{{#let (get-code-snippet this.snippetPath) as |snippet|}}
-<pre class={{snippet.language}}>{{snippet.source}}</pre>
-{{/let}}
-{{#let (get-code-snippet (get-name 'snippet')) as |snippet|}}
-<pre class={{snippet.language}}>{{snippet.source}}</pre>
-{{/let}}
+{{#let (get-code-snippet 'snippet.hbs') as |snippet|}}<pre class={{snippet.language}}>{{snippet.source}}</pre>{{/let}}
+{{#let (get-code-snippet @snippetPath) as |snippet|}}<pre class={{snippet.language}}>{{snippet.source}}</pre>{{/let}}
+{{#let (get-code-snippet this.snippetPath) as |snippet|}}<pre class={{snippet.language}}>{{snippet.source}}</pre>{{/let}}
+{{#let (get-code-snippet (get-name 'snippet')) as |snippet|}}<pre class={{snippet.language}}>{{snippet.source}}</pre>{{/let}}
+{{#let (get-code-snippet "snippet.hbs") as |snippet|}}<pre class={{snippet.language}}>{{snippet.source}}</pre>{{/let}}
+{{#let (get-code-snippet @snippetPath) as |snippet|}}<pre class={{snippet.language}}>{{snippet.source}}</pre>{{/let}}
+{{#let (get-code-snippet this.snippetPath) as |snippet|}}<pre class={{snippet.language}}>{{snippet.source}}</pre>{{/let}}
+{{#let (get-code-snippet (get-name 'snippet')) as |snippet|}}<pre class={{snippet.language}}>{{snippet.source}}</pre>{{/let}}
