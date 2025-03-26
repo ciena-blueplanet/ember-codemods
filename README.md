@@ -38,6 +38,7 @@ npx @ciena-org/ember-codemods $TRANSFORM path/of/files/ or/some**/*glob.js
 | --------- | ----------- | --------------- |
 | [revert-computed-macro](./src/transforms/revert-computed-macro/)| Replace `computed` from `ember-macro-helpers` with `@ember/object` instead. | <ul><li>Will add variable even if not used from function before. Can just remove as need be (or PR fix), was not a common occurence in my code to have unused dependency</li></ul> |
 | [ember-code-snippets-helper](./src/transforms/ember-code-snippets-helper/)| Replace `CodeSnippet` component with `get-code-snippet` helper when updating `ember-code-snippet` to v3. | |
+| [replace-proxy-hack-with-decorator](./src/transforms/replace-proxy-hack-with-decorator//)| Replace internal `proxyAttr`, `proxyBelongsTo`, and `proxyHasMany` macros with a `expectationProxy` class decorator. | This only works with models that aren't native classes, but I think it should be okay since the only models using these macros are following the classic syntax. |
 
 ## Contributing
 
