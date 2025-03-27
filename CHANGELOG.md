@@ -1,5 +1,12 @@
 # @ciena-org/ember-codemods
 
+## 0.3.8
+
+### Patch Changes
+
+- 7a3b23b: Add `replace-proxy-hack-with-decorator` transform
+- 4644e4c: Remove whitespace inserted by `ember-code-snippets-helper` transform
+
 ## 0.3.7
 
 ### Patch Changes
